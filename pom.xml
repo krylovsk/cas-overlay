@@ -68,13 +68,13 @@
        </dependency>
        <dependency>
            <groupId>org.jasig.cas</groupId>
-           <artifactId>cas-server-integration-restlet</artifactId>
+           <artifactId>cas-server-integration-rest</artifactId>
            <version>${cas.version}</version>
        </dependency>
     </dependencies>
 
     <properties>
-        <cas.version>4.0.3</cas.version>
+        <cas.version>4.1.0-SNAPSHOT</cas.version>
         <servlet.version>2.5</servlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

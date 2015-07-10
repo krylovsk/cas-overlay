@@ -30,8 +30,9 @@
     <param-value>
       /WEB-INF/spring-configuration/*.xml
       /WEB-INF/deployerConfigContext.xml
+      classpath*:/META-INF/spring/*.xml
     </param-value>
-  </context-param>
+</context-param>
 
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
@@ -200,6 +201,12 @@
     <url-pattern>/oauth2.0/*</url-pattern>
   </servlet-mapping>
 
+  <!-- REST Protocol (no restlet) -->
+  <servlet-mapping>
+    <servlet-name>cas</servlet-name>
+    <url-pattern>/v1/*</url-pattern>
+  </servlet-mapping>
+
   <session-config>
     <!-- Default to 5 minute session timeouts -->
     <session-timeout>5</session-timeout>
@@ -239,8 +246,8 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
-  <!-- REST Protocol -->
-  <servlet>
+  <!-- REST Protocol (deprecated) -->
+  <!-- <servlet>
     <servlet-name>restlet</servlet-name>
     <servlet-class>org.restlet.ext.spring.RestletFrameworkServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
@@ -249,5 +256,5 @@
   <servlet-mapping>
     <servlet-name>restlet</servlet-name>
     <url-pattern>/v1/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
 </web-app>
