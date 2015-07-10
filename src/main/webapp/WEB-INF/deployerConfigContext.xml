@@ -164,24 +164,4 @@
           p:serviceTicketCountWarnThreshold="5000"
           p:sessionCountWarnThreshold="100000" />
     </util:list>
-
-    <!-- Oauth -->
-    <bean
-    id="oauth20WrapperController"
-    class="org.jasig.cas.support.oauth.web.OAuth20WrapperController"
-    p:loginUrl="${server.prefix}/login"
-    p:servicesManager-ref="servicesManager"
-    p:ticketRegistry-ref="ticketRegistry"
-    p:timeout="7200" />
-    <bean id="handlerMappingC" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-      <property name="mappings">
-        <props>
-          <!-- <prop key="/serviceValidate">serviceValidateController</prop> -->
-          <!-- <prop key="/statistics">statisticsController</prop> -->
-          <prop key="/oauth2.0/*">oauth20WrapperController</prop>
-        </props>
-      </property>
-      <property name="alwaysUseFullPath" value="true" />
-    </bean>
-
 </beans>
