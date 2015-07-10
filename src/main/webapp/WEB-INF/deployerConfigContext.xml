@@ -48,13 +48,11 @@
 
     <bean id="ldapAuthenticationHandler"
           class="org.jasig.cas.authentication.LdapAuthenticationHandler"
-          p:principalIdAttribute="uid"
+          p:principalIdAttribute="cn"
           c:authenticator-ref="ldapAuthenticator">
       <property name="principalAttributeMap">
         <map>
-          <entry key="member" value="member" />
-          <entry key="mail" value="mail" />
-          <entry key="displayName" value="displayName" />
+	  <entry key="sn" value="sn" />
         </map>
       </property>
     </bean>
@@ -65,7 +63,7 @@
 
     <bean id="dnResolver"
           class="org.ldaptive.auth.FormatDnResolver"
-          c:format="uid=%s,${ldap.baseDn}" />
+          c:format="cn=%s,${ldap.baseDn}" />
 
     <bean id="ldapAuthHandler" class="org.ldaptive.auth.PooledBindAuthenticationHandler"
           p:connectionFactory-ref="pooledLdapConnectionFactory" />
