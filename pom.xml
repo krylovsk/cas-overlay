@@ -61,6 +61,11 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+         <groupId>org.jasig.cas</groupId>
+         <artifactId>cas-server-support-oauth</artifactId>
+         <version>${cas.version}</version>
+       </dependency>
     </dependencies>
 
     <properties>

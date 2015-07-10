@@ -125,6 +125,25 @@
         <bean class="org.jasig.cas.services.RegexRegisteredService"
               p:id="0" p:name="HTTP and IMAP" p:description="Allows HTTP(S) and IMAP(S) protocols"
               p:serviceId="^(https?|imaps?)://.*" p:evaluationOrder="10000001" />
+
+         <!-- A dedicated component to recognize OAuth Callback Authorization requests -->
+        <bean class="org.jasig.cas.support.oauth.services.OAuthCallbackAuthorizeService">
+          <property name="id" value="0" />
+          <property name="name" value="HTTP" />
+          <property name="description" value="oauth wrapper callback url" />
+          <!-- By default, only support regex patterns if/when needed -->
+          <property name="serviceId" value="${server.prefix}/oauth2.0/callbackAuthorize" />
+        </bean>
+
+        <bean class="org.jasig.cas.support.oauth.services.OAuthRegisteredService">
+          <property name="id" value="1" />
+          <property name="name" value="testService" />
+          <property name="description" value="Test Service Description" />
+          <!-- Supports regex patterns by default for service ids -->
+          <property name="serviceId" value="http://localhost:8080/testService" />
+          <property name="clientId" value="123456789" />
+          <property name="clientSecret" value="qwerty" />
+        </bean>
     </util:list>
 
     <bean id="auditTrailManager" class="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager" />
@@ -145,4 +164,24 @@
           p:serviceTicketCountWarnThreshold="5000"
           p:sessionCountWarnThreshold="100000" />
     </util:list>
+
+    <!-- Oauth -->
+    <bean
+    id="oauth20WrapperController"
+    class="org.jasig.cas.support.oauth.web.OAuth20WrapperController"
+    p:loginUrl="${server.prefix}/login"
+    p:servicesManager-ref="servicesManager"
+    p:ticketRegistry-ref="ticketRegistry"
+    p:timeout="7200" />
+    <bean id="handlerMappingC" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+      <property name="mappings">
+        <props>
+          <prop key="/serviceValidate">serviceValidateController</prop>
+          <prop key="/statistics">statisticsController</prop>
+          <prop key="/oauth2.0/*">oauth20WrapperController</prop>
+        </props>
+      </property>
+      <property name="alwaysUseFullPath" value="true" />
+    </bean>
+
 </beans>
